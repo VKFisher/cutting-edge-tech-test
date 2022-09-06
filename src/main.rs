@@ -57,7 +57,6 @@ fn main() {
     println!("Solution: {}", solve());
 }
 
-// No test changes needed!
 #[cfg(test)]
 mod tests {
     use super::*;
