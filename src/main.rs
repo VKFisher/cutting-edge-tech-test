@@ -14,24 +14,19 @@ const INITIAL_POSITION: Coords = (1000, 1000);
 const MAX_ALLOWED_SUM: u32 = 25;
 
 fn solve() -> u32 {
-    fn step(moves: HashSet<Coords>, mut seen: HashSet<Coords>) -> HashSet<Coords> {
-        if moves.is_empty() {
-            seen
-        } else {
-            seen.extend(&moves);
-            let updated_moves: HashSet<Coords> = moves
-                .iter()
-                .flat_map(possible_moves)
-                .filter(|x| !seen.contains(x))
-                .collect();
-            step(updated_moves, seen)
-        }
+    let mut seen: HashSet<Coords> = HashSet::new();
+    let mut moves: HashSet<Coords> = HashSet::from([INITIAL_POSITION]);
+
+    while !moves.is_empty() {
+        seen.extend(&moves);
+        moves = moves
+            .iter()
+            .flat_map(possible_moves)
+            .filter(|x| !seen.contains(x))
+            .collect();
     }
 
-    step(HashSet::from([INITIAL_POSITION]), HashSet::new())
-        .len()
-        .try_into()
-        .unwrap()
+    seen.len().try_into().unwrap()
 }
 
 fn possible_moves(&(x, y): &Coords) -> HashSet<Coords> {
