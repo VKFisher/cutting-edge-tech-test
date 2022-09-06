@@ -19,11 +19,7 @@ fn solve() -> u32 {
 
     while !moves.is_empty() {
         seen.extend(&moves);
-        moves = moves
-            .iter()
-            .flat_map(possible_moves)
-            .filter(|x| !seen.contains(x))
-            .collect();
+        moves = &moves.iter().flat_map(possible_moves).collect() - &seen;
     }
 
     seen.len().try_into().unwrap()
@@ -37,10 +33,10 @@ fn possible_moves(&(x, y): &Coords) -> HashSet<Coords> {
 }
 
 fn coords_valid(&(x, y): &Coords) -> bool {
-    digit_sum(&x) + digit_sum(&y) <= MAX_ALLOWED_SUM
+    digit_sum(x) + digit_sum(y) <= MAX_ALLOWED_SUM
 }
 
-fn digit_sum(&number: &i32) -> u32 {
+fn digit_sum(number: i32) -> u32 {
     let digits: Option<Vec<u32>> = number
         .unsigned_abs()
         .to_string()
@@ -63,22 +59,22 @@ mod tests {
 
     #[test]
     fn digit_sum_works_for_nonzero_number() {
-        assert_eq!(digit_sum(&123), 6)
+        assert_eq!(digit_sum(123), 6)
     }
 
     #[test]
     fn digit_sum_works_for_single_digit_number() {
-        assert_eq!(digit_sum(&5), 5)
+        assert_eq!(digit_sum(5), 5)
     }
 
     #[test]
     fn digit_sum_works_for_zero() {
-        assert_eq!(digit_sum(&0), 0)
+        assert_eq!(digit_sum(0), 0)
     }
 
     #[test]
     fn digit_sum_works_for_i32_min() {
-        assert_eq!(digit_sum(&i32::MIN), 47)
+        assert_eq!(digit_sum(i32::MIN), 47)
     }
 
     #[test]
