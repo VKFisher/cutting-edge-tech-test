@@ -13,7 +13,7 @@ type Coords = (i32, i32);
 const INITIAL_POSITION: Coords = (1000, 1000);
 const MAX_ALLOWED_SUM: u32 = 25;
 
-fn solve() -> u32 {
+pub fn solve() -> u32 {
     let mut seen: HashSet<Coords> = HashSet::new();
     let mut moves: HashSet<Coords> = HashSet::from([INITIAL_POSITION]);
 
