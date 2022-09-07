@@ -92,7 +92,7 @@ mod tests {
 
     #[test]
     fn coords_with_sum_26_invalid() {
-        assert!(coords_valid(&(55, 55)))
+        assert!(!coords_valid(&(556, 55)))
     }
 
     #[test]
