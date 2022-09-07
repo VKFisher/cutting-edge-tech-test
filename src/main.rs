@@ -41,16 +41,15 @@ fn coords_valid(&(x, y): &Coords) -> bool {
 }
 
 fn digit_sum(number: i32) -> u32 {
-    let digits: Option<Vec<u32>> = number
+    number
         .unsigned_abs()
         .to_string()
         .chars()
         .map(|c| c.to_digit(10))
-        .collect();
-    match digits {
-        None => panic!("symbol in string representation is not a digit"),
-        Some(ds) => ds.iter().sum(),
-    }
+        .collect::<Option<Vec<u32>>>()
+        .expect("symbol in string representation is not a digit")
+        .iter()
+        .sum()
 }
 
 fn main() {
